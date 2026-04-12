@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulator — Ticket Monster</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .sim-wrapper {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .sim-intro {
+      background: rgba(255,209,102,0.07);
+      border: 1px solid rgba(255,209,102,0.3);
+      border-radius: 6px;
+      padding: 1.2rem 1.5rem;
+      font-size: 0.92rem;
+      color: rgba(245,240,232,0.8);
+      margin-bottom: 2.5rem;
+    }
+
+    .sim-intro strong { color: var(--yellow); }
+
+    /* ── SIMULATOR SHELL ── */
+    #simulator {
+      background: #111;
+      border: 2px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    }
+
+    .sim-topbar {
+      background: #1a1a1a;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 0.8rem 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .sim-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .sim-dot.red { background: #ff5f56; }
+    .sim-dot.yellow { background: #ffbd2e; }
+    .sim-dot.green { background: #27c93f; }
+
+    .sim-url {
+      flex: 1;
+      margin-left: 0.5rem;
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      padding: 0.3rem 0.8rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--light-gray);
+    }
+
+    .sim-screen {
+      padding: 2.5rem 2rem;
+      min-height: 460px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── PHASES ── */
+    .phase { display: none; width: 100%; text-align: center; }
+    .phase.active { display: flex; flex-direction: column; align-items: center; }
+
+    .phase-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      color: var(--white);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .phase-sub {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--light-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.8rem;
+    }
+
+    /* Waiting room countdown */
+    .countdown-ring {
+      position: relative;
+      width: 120px; height: 120px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .countdown-ring svg { transform: rotate(-90deg); }
+
+    .countdown-ring .ring-bg { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 6; }
+    .countdown-ring .ring-fill { fill: none; stroke: var(--teal); stroke-width: 6; stroke-linecap: round;
+      stroke-dasharray: 314; stroke-dashoffset: 314; transition: stroke-dashoffset 1s linear; }
+
+    .countdown-num {
+      position: absolute;
+      inset: 0; display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.4rem;
+      color: var(--teal);
+    }
+
+    /* Queue bar */
+    .queue-container {
+      width: 100%; max-width: 480px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .queue-label {
+      display: flex; justify-content: space-between;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--light-gray);
+      margin-bottom: 0.4rem;
+    }
+
+    .queue-bar {
+      height: 8px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .queue-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--teal), var(--green));
+      border-radius: 4px;
+      transition: width 0.6s ease;
+      width: 0%;
+    }
+
+    .queue-position {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      color: var(--yellow);
+      line-height: 1;
+      margin: 0.5rem 0;
+    }
+
+    .queue-pos-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--light-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* Ticket picker */
+    .ticket-picker {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin: 1rem 0 1.5rem;
+    }
+
+    .qty-btn {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      border: 2px solid var(--teal);
+      background: transparent;
+      color: var(--teal);
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .qty-btn:hover { background: var(--teal); color: var(--black); }
+
+    .qty-display {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: var(--white);
+      min-width: 50px;
+      text-align: center;
+    }
+
+    /* Seat map */
+    .seat-map {
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .stage {
+      background: rgba(46,196,182,0.15);
+      border: 1px solid rgba(46,196,182,0.4);
+      border-radius: 4px;
+      padding: 0.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--teal);
+      text-align: center;
+      margin-bottom: 1rem;
+      letter-spacing: 0.1em;
+    }
+
+    .seat-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .seat-row {
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .row-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--light-gray);
+      width: 16px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .seat {
+      width: 20px; height: 16px;
+      border-radius: 3px 3px 0 0;
+      border: 1px solid rgba(255,255,255,0.15);
+      cursor: pointer;
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+
+    .seat.available { background: rgba(46,196,182,0.25); border-color: var(--teal); }
+    .seat.taken { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.08); cursor: not-allowed; }
+    .seat.selected { background: var(--coral); border-color: var(--coral); }
+    .seat.available:hover { background: rgba(46,196,182,0.6); }
+
+    .seat-legend {
+      display: flex; gap: 1.2rem; justify-content: center;
+      margin-top: 0.8rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--light-gray);
+    }
+
+    .seat-legend-item { display: flex; align-items: center; gap: 0.4rem; }
+    .legend-dot { width: 12px; height: 10px; border-radius: 2px 2px 0 0; }
+
+    /* Order summary */
+    .order-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      padding: 1.4rem;
+      width: 100%; max-width: 420px;
+      text-align: left;
+      margin: 0 auto 1.5rem;
+    }
+
+    .order-row {
+      display: flex; justify-content: space-between;
+      font-size: 0.9rem;
+      padding: 0.35rem 0;
+      color: rgba(245,240,232,0.8);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .order-row:last-child { border-bottom: none; }
+
+    .order-row.total {
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      color: var(--white);
+      font-size: 1rem;
+      margin-top: 0.3rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .order-row .fee-note {
+      font-size: 0.72rem;
+      color: var(--coral);
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* Success screen */
+    .success-icon {
+      font-size: 4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .confetti-row {
+      display: flex; gap: 0.4rem; justify-content: center;
+      margin-top: 1rem;
+    }
+
+    .confetti-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      animation: pop 0.4s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes pop {
+      0% { opacity: 0; transform: scale(0); }
+      60% { opacity: 1; transform: scale(1.4); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Progress steps */
+    .sim-progress {
+      display: flex;
+      gap: 0;
+      padding: 0.8rem 1.2rem;
+      background: rgba(255,255,255,0.02);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      overflow-x: auto;
+    }
+
+    .sim-step {
+      flex: 1;
+      text-align: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--light-gray);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.2rem 0.4rem;
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .sim-step.done { color: var(--teal); }
+    .sim-step.current { color: var(--white); font-weight: 700; }
+
+    .sim-step::after {
+      content: '→';
+      position: absolute;
+      right: -0.4rem;
+      color: rgba(255,255,255,0.15);
+    }
+    .sim-step:last-child::after { display: none; }
+
+    /* Alert bar */
+    .alert-bar {
+      display: none;
+      background: rgba(230,57,70,0.15);
+      border: 1px solid rgba(230,57,70,0.4);
+      color: var(--coral);
+      padding: 0.6rem 1rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    .alert-bar.show { display: block; }
+
+    @media (max-width: 600px) {
+      .seat { width: 15px; height: 12px; }
+      .sim-screen { padding: 1.5rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="../index.html" class="nav-logo">ticket <span class="alt">monster</span> <span class="strike">master</span></a>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+    <ul>
+      <li><a href="history.html">History</a></li>
+      <li><a href="step-by-step.html">Step-by-Step</a></li>
+      <li><a href="simulator.html">Simulator</a></li>
+      <li><a href="alternatives.html">Alternatives</a></li>
+      <li><a href="activism.html">Activism</a></li>
+      <li><a href="citations.html">Citations</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="page-hero">
+      <div class="subtitle">Practice Run</div>
+      <h1>Ticket Sale<br><em>Simulator</em></h1>
+    </div>
+
+    <div class="container sim-wrapper">
+      <div class="sim-intro">
+        <strong>Practice before the real thing.</strong> This simulator replicates the full Ticketmaster high-demand sale experience — waiting room, queue countdown, seat selection, and checkout. No real money, no real stress.
+      </div>
+
+      <div id="simulator">
+        <div class="sim-topbar">
+          <div class="sim-dot red"></div>
+          <div class="sim-dot yellow"></div>
+          <div class="sim-dot green"></div>
+          <div class="sim-url">ticketmaster.com › artist › the-void-tour › 2026</div>
+        </div>
+
+        <div class="alert-bar" id="alertBar">⚠ Your session is about to expire — act quickly!</div>
+
+        <div class="sim-screen" id="simScreen">
+
+          <!-- PHASE 0: Start -->
+          <div class="phase active" id="phase0">
+            <div class="phase-title">The Void Tour</div>
+            <div class="phase-sub">High-demand presale · Opens in your waiting room</div>
+            <p style="color:rgba(245,240,232,0.65);font-size:0.92rem;margin-bottom:1.8rem;max-width:380px;">
+              You're about to experience a real Ticketmaster high-demand presale. The clock starts now. Are you ready?
+            </p>
+            <button class="btn btn-fill" onclick="startSim()">Enter Waiting Room</button>
+          </div>
+
+          <!-- PHASE 1: Waiting Room -->
+          <div class="phase" id="phase1">
+            <div class="phase-title">Waiting Room</div>
+            <div class="phase-sub">Sale opens soon — hold your position</div>
+            <div class="countdown-ring">
+              <svg viewBox="0 0 100 100" width="120" height="120">
+                <circle class="ring-bg" cx="50" cy="50" r="44"/>
+                <circle class="ring-fill" id="ringFill" cx="50" cy="50" r="44"/>
+              </svg>
+              <div class="countdown-num" id="countdownNum">30</div>
+            </div>
+            <p style="color:rgba(245,240,232,0.55);font-size:0.85rem;">Do not close this tab. Do not refresh.</p>
+          </div>
+
+          <!-- PHASE 2: Queue -->
+          <div class="phase" id="phase2">
+            <div class="phase-title">You're in the Queue</div>
+            <div class="phase-sub">Estimated wait: a few minutes</div>
+            <div class="queue-position" id="queuePos">8,241</div>
+            <div class="queue-pos-label">people ahead of you</div>
+            <div class="queue-container" style="margin-top:1.5rem;">
+              <div class="queue-label">
+                <span>Queue Progress</span>
+                <span id="queuePct">0%</span>
+              </div>
+              <div class="queue-bar">
+                <div class="queue-fill" id="queueFill"></div>
+              </div>
+            </div>
+            <p style="color:rgba(245,240,232,0.5);font-size:0.8rem;font-family:'Space Mono',monospace;">Stay on this page · Do not refresh</p>
+          </div>
+
+          <!-- PHASE 3: Ticket Count -->
+          <div class="phase" id="phase3">
+            <div class="phase-title">How Many Tickets?</div>
+            <div class="phase-sub">Maximum 4 per order · You have 3:00</div>
+            <div class="ticket-picker">
+              <button class="qty-btn" onclick="changeQty(-1)">−</button>
+              <div class="qty-display" id="qtyDisplay">2</div>
+              <button class="qty-btn" onclick="changeQty(1)">+</button>
+            </div>
+            <p style="color:rgba(245,240,232,0.6);font-size:0.88rem;margin-bottom:1.5rem;">
+              Tip: have everyone in your group buying simultaneously for separate dates
+            </p>
+            <button class="btn btn-fill" onclick="goPhase(4)">Select Seats →</button>
+          </div>
+
+          <!-- PHASE 4: Seat Selection -->
+          <div class="phase" id="phase4">
+            <div class="phase-title">Pick Your Seats</div>
+            <div class="phase-sub" id="seatSub">Select 2 seats · Time remaining: 2:00</div>
+            <div class="seat-map">
+              <div class="stage">◀ STAGE ▶</div>
+              <div class="seat-grid" id="seatGrid"></div>
+              <div class="seat-legend">
+                <div class="seat-legend-item"><div class="legend-dot" style="background:rgba(46,196,182,0.4);border:1px solid var(--teal);"></div>Available</div>
+                <div class="seat-legend-item"><div class="legend-dot" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);"></div>Taken</div>
+                <div class="seat-legend-item"><div class="legend-dot" style="background:var(--coral);border:1px solid var(--coral);"></div>Selected</div>
+              </div>
+            </div>
+            <button class="btn btn-fill" id="seatContinueBtn" onclick="goPhase(5)" disabled style="opacity:0.4;">Confirm Seats →</button>
+          </div>
+
+          <!-- PHASE 5: Checkout -->
+          <div class="phase" id="phase5">
+            <div class="phase-title">Review &amp; Confirm</div>
+            <div class="phase-sub">Complete your order · Time remaining: 5:00</div>
+            <div class="order-box" id="orderBox">
+              <!-- filled by JS -->
+            </div>
+            <button class="btn btn-fill" style="background:var(--green);border-color:var(--green);color:var(--black);" onclick="goPhase(6)">Confirm &amp; Pay →</button>
+          </div>
+
+          <!-- PHASE 6: Success -->
+          <div class="phase" id="phase6">
+            <div class="success-icon">🎫</div>
+            <div class="phase-title" style="color:var(--green);">You Got Tickets!</div>
+            <div class="phase-sub">Order confirmed · Check your email</div>
+            <div class="confetti-row" id="confettiRow"></div>
+            <p style="color:rgba(245,240,232,0.65);font-size:0.9rem;margin:1rem 0 1.8rem;max-width:360px;">
+              You survived the Ticketmaster queue. Now you know exactly what to do when the real sale hits.
+            </p>
+            <button class="btn" onclick="resetSim()">Try Again</button>
+          </div>
+
+        </div>
+
+        <!-- Bottom progress bar -->
+        <div class="sim-progress" id="simProgress">
+          <div class="sim-step current" id="sp0">Waiting Room</div>
+          <div class="sim-step" id="sp1">Queue</div>
+          <div class="sim-step" id="sp2"># Tickets</div>
+          <div class="sim-step" id="sp3">Seats</div>
+          <div class="sim-step" id="sp4">Checkout</div>
+          <div class="sim-step" id="sp5">Done</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/nav.js"></script>
+  <script>
+    let qtySelected = 2;
+    let selectedSeats = [];
+    let queueInterval, seatTimer, seatTimerSec;
+    let currentPhaseIdx = 0;
+
+    const seatLayout = [
+      { row: 'A', total: 12, taken: [2,5,8] },
+      { row: 'B', total: 14, taken: [1,3,6,7,10,13] },
+      { row: 'C', total: 14, taken: [0,2,4,9,11] },
+      { row: 'D', total: 16, taken: [0,1,3,5,8,12,15] },
+      { row: 'E', total: 16, taken: [2,6,7,9,10,14] },
+      { row: 'F', total: 18, taken: [1,4,5,8,11,13,16] },
+    ];
+
+    const ticketPrice = 89.00;
+    const serviceFee = 35.90;
+    const facilityFee = 5.50;
+
+    function startSim() {
+      goPhase(1);
+      startCountdown();
+    }
+
+    function goPhase(n) {
+      document.querySelectorAll('.phase').forEach(p => p.classList.remove('active'));
+      document.getElementById('phase' + n).classList.add('active');
+      currentPhaseIdx = n;
+      updateProgress(n);
+
+      if (n === 2) startQueue();
+      if (n === 4) { buildSeatMap(); startSeatTimer(); }
+      if (n === 5) buildOrder();
+      if (n === 6) launchConfetti();
+    }
+
+    function updateProgress(n) {
+      const map = { 0: -1, 1: 0, 2: 1, 3: 2, 4: 3, 5: 4, 6: 5 };
+      const idx = map[n];
+      for (let i = 0; i <= 5; i++) {
+        const el = document.getElementById('sp' + i);
+        el.className = 'sim-step';
+        if (i < idx) el.classList.add('done');
+        else if (i === idx) el.classList.add('current');
+      }
+    }
+
+    // Phase 1: countdown
+    function startCountdown() {
+      let sec = 30;
+      const ring = document.getElementById('ringFill');
+      const num = document.getElementById('countdownNum');
+      const circ = 2 * Math.PI * 44;
+      ring.style.strokeDasharray = circ;
+      ring.style.strokeDashoffset = 0;
+
+      const t = setInterval(() => {
+        sec--;
+        num.textContent = sec;
+        ring.style.strokeDashoffset = circ * (1 - sec/30);
+        if (sec <= 0) { clearInterval(t); goPhase(2); }
+      }, 1000);
+    }
+
+    // Phase 2: queue
+    function startQueue() {
+      let pos = 8241;
+      const posEl = document.getElementById('queuePos');
+      const fillEl = document.getElementById('queueFill');
+      const pctEl = document.getElementById('queuePct');
+      const start = pos;
+
+      queueInterval = setInterval(() => {
+        pos -= Math.floor(Math.random() * 180 + 80);
+        if (pos < 0) pos = 0;
+        const pct = Math.round((1 - pos/start) * 100);
+        posEl.textContent = pos.toLocaleString();
+        fillEl.style.width = pct + '%';
+        pctEl.textContent = pct + '%';
+        if (pos === 0) { clearInterval(queueInterval); goPhase(3); }
+      }, 600);
+    }
+
+    // Phase 3: qty
+    function changeQty(d) {
+      qtySelected = Math.max(1, Math.min(4, qtySelected + d));
+      document.getElementById('qtyDisplay').textContent = qtySelected;
+      selectedSeats = [];
+    }
+
+    // Phase 4: seat map
+    function buildSeatMap() {
+      selectedSeats = [];
+      const grid = document.getElementById('seatGrid');
+      grid.innerHTML = '';
+      seatLayout.forEach(rowData => {
+        const rowEl = document.createElement('div');
+        rowEl.className = 'seat-row';
+        const lbl = document.createElement('div');
+        lbl.className = 'row-label';
+        lbl.textContent = rowData.row;
+        rowEl.appendChild(lbl);
+        for (let i = 0; i < rowData.total; i++) {
+          const seat = document.createElement('div');
+          seat.className = 'seat ' + (rowData.taken.includes(i) ? 'taken' : 'available');
+          seat.dataset.id = rowData.row + (i+1);
+          if (!rowData.taken.includes(i)) {
+            seat.onclick = () => toggleSeat(seat);
+          }
+          rowEl.appendChild(seat);
+        }
+        grid.appendChild(rowEl);
+      });
+      document.getElementById('seatSub').textContent = `Select ${qtySelected} seat${qtySelected>1?'s':''} · Time remaining: 2:00`;
+    }
+
+    function toggleSeat(el) {
+      const id = el.dataset.id;
+      if (el.classList.contains('selected')) {
+        el.classList.remove('selected');
+        el.classList.add('available');
+        selectedSeats = selectedSeats.filter(s => s !== id);
+      } else {
+        if (selectedSeats.length >= qtySelected) {
+          // deselect oldest
+          const oldest = selectedSeats.shift();
+          document.querySelector(`[data-id="${oldest}"]`)?.classList.replace('selected','available');
+        }
+        el.classList.replace('available','selected');
+        selectedSeats.push(id);
+      }
+      const btn = document.getElementById('seatContinueBtn');
+      const ready = selectedSeats.length === qtySelected;
+      btn.disabled = !ready;
+      btn.style.opacity = ready ? '1' : '0.4';
+    }
+
+    function startSeatTimer() {
+      seatTimerSec = 120;
+      clearInterval(seatTimer);
+      seatTimer = setInterval(() => {
+        seatTimerSec--;
+        const m = Math.floor(seatTimerSec/60);
+        const s = seatTimerSec % 60;
+        document.getElementById('seatSub').textContent =
+          `Select ${qtySelected} seat${qtySelected>1?'s':''} · Time remaining: ${m}:${s.toString().padStart(2,'0')}`;
+        if (seatTimerSec <= 20) {
+          document.getElementById('alertBar').classList.add('show');
+        }
+        if (seatTimerSec <= 0) { clearInterval(seatTimer); resetSeatMap(); }
+      }, 1000);
+    }
+
+    function resetSeatMap() {
+      document.getElementById('alertBar').classList.remove('show');
+      selectedSeats = [];
+      buildSeatMap();
+      startSeatTimer();
+    }
+
+    // Phase 5: order
+    function buildOrder() {
+      clearInterval(seatTimer);
+      document.getElementById('alertBar').classList.remove('show');
+      const n = qtySelected;
+      const subtotal = ticketPrice * n;
+      const fees = (serviceFee + facilityFee) * n;
+      const total = subtotal + fees;
+      const orderBox = document.getElementById('orderBox');
+      orderBox.innerHTML = `
+        <div class="order-row"><span>The Void Tour — GA Floor</span><span></span></div>
+        <div class="order-row"><span>Seats: ${selectedSeats.join(', ')}</span><span></span></div>
+        <div class="order-row"><span>${n}x Ticket${n>1?'s':''}</span><span>$${subtotal.toFixed(2)}</span></div>
+        <div class="order-row"><span>Service Fee <span class="fee-note">(× ${n})</span></span><span>$${(serviceFee*n).toFixed(2)}</span></div>
+        <div class="order-row"><span>Facility Charge <span class="fee-note">(× ${n})</span></span><span>$${(facilityFee*n).toFixed(2)}</span></div>
+        <div class="order-row total"><span>Total</span><span>$${total.toFixed(2)}</span></div>
+      `;
+    }
+
+    // Phase 6: confetti
+    function launchConfetti() {
+      const colors = ['var(--teal)','var(--coral)','var(--yellow)','var(--green)','var(--pink)'];
+      const row = document.getElementById('confettiRow');
+      row.innerHTML = '';
+      for (let i = 0; i < 12; i++) {
+        const d = document.createElement('div');
+        d.className = 'confetti-dot';
+        d.style.background = colors[i % colors.length];
+        d.style.animationDelay = (i * 0.06) + 's';
+        row.appendChild(d);
+      }
+    }
+
+    function resetSim() {
+      clearInterval(queueInterval);
+      clearInterval(seatTimer);
+      document.getElementById('alertBar').classList.remove('show');
+      qtySelected = 2;
+      selectedSeats = [];
+      document.getElementById('qtyDisplay').textContent = '2';
+      goPhase(0);
+      document.querySelectorAll('.phase').forEach(p => p.classList.remove('active'));
+      document.getElementById('phase0').classList.add('active');
+      updateProgress(0);
+    }
+  </script>
+</body>
+</html>
