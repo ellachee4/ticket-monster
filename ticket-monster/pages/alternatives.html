@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alternative Options — Ticket Monster</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <style>
+    .alt-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .alt-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      transition: border-color 0.25s, transform 0.2s;
+    }
+
+    .alt-card:hover {
+      border-color: rgba(255,209,102,0.4);
+      transform: translateY(-3px);
+    }
+
+    .alt-icon {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .alt-card h3 {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--yellow);
+      letter-spacing: 0.03em;
+    }
+
+    .alt-card p {
+      font-size: 0.9rem;
+      color: rgba(245,240,232,0.72);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .alt-card .link-area {
+      margin-top: 0.4rem;
+    }
+
+    .alt-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--yellow);
+      text-decoration: none;
+      border: 1px solid rgba(255,209,102,0.3);
+      padding: 0.4rem 0.9rem;
+      border-radius: 3px;
+      transition: all 0.2s;
+      letter-spacing: 0.04em;
+    }
+
+    .alt-link:hover {
+      background: rgba(255,209,102,0.1);
+      border-color: var(--yellow);
+    }
+
+    .alt-link.placeholder {
+      opacity: 0.4;
+      cursor: default;
+      border-style: dashed;
+    }
+
+    .note-strip {
+      background: rgba(255,209,102,0.06);
+      border-left: 3px solid var(--yellow);
+      padding: 1rem 1.5rem;
+      border-radius: 0 4px 4px 0;
+      font-size: 0.88rem;
+      color: rgba(245,240,232,0.7);
+      margin-bottom: 2.5rem;
+    }
+
+    .note-strip strong { color: var(--yellow); }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="../index.html" class="nav-logo">ticket <span class="alt">monster</span> <span class="strike">master</span></a>
+    <div class="hamburger"><span></span><span></span><span></span></div>
+    <ul>
+      <li><a href="history.html">History</a></li>
+      <li><a href="step-by-step.html">Step-by-Step</a></li>
+      <li><a href="simulator.html">Simulator</a></li>
+      <li><a href="alternatives.html">Alternatives</a></li>
+      <li><a href="activism.html">Activism</a></li>
+      <li><a href="citations.html">Citations</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-wrapper">
+    <div class="page-hero">
+      <div class="subtitle">Work Around the System</div>
+      <h1>Alternative<br><em>Options</em></h1>
+    </div>
+
+    <div class="container">
+      <div class="note-strip">
+        <strong>Links are placeholders</strong> — edit the HTML to add your own URLs to each option below.
+      </div>
+
+      <div class="alt-grid">
+
+        <div class="alt-card">
+          <div class="alt-icon">🏛️</div>
+          <h3>In-Person Box Office</h3>
+          <p>Look for in-person box offices or purchase tickets directly at the venue. Avoids all online service fees and queue systems entirely.</p>
+          <p style="font-size:0.8rem;color:var(--light-gray);font-style:italic;">Example: Maggie Rogers' 2024 "Don't Forget Me" tour offered in-person box office sales.</p>
+          <div class="link-area">
+            <a href="#" class="alt-link placeholder">→ Add Link Here</a>
+          </div>
+        </div>
+
+        <div class="alt-card">
+          <div class="alt-icon">🎲</div>
+          <h3>Dice</h3>
+          <p>Use Dice — an alternative ticketing platform to Ticketmaster. Known for upfront transparent pricing with no hidden service fees added at checkout.</p>
+          <div class="link-area">
+            <a href="#" class="alt-link placeholder">→ Add Link Here</a>
+          </div>
+        </div>
+
+        <div class="alt-card">
+          <div class="alt-icon">🎫</div>
+          <h3>Artist / Venue Direct</h3>
+          <p>Many artists and independent venues sell tickets directly through their own websites, bypassing Ticketmaster entirely and often at lower fees.</p>
+          <div class="link-area">
+            <a href="#" class="alt-link placeholder">→ Add Link Here</a>
+          </div>
+        </div>
+
+        <div class="alt-card">
+          <div class="alt-icon">🔄</div>
+          <h3>Fan-to-Fan Resale</h3>
+          <p>Look for fan-run ticket exchanges and community resale groups where fans sell at face value — as opposed to scalper-run secondary market platforms.</p>
+          <div class="link-area">
+            <a href="#" class="alt-link placeholder">→ Add Link Here</a>
+          </div>
+        </div>
+
+        <div class="alt-card">
+          <div class="alt-icon">📻</div>
+          <h3>Radio / Presale Giveaways</h3>
+          <p>Local radio stations and artist fan clubs frequently run presale giveaways or offer direct-access presale codes before general tickets go on sale.</p>
+          <div class="link-area">
+            <a href="#" class="alt-link placeholder">→ Add Link Here</a>
+          </div>
+        </div>
+
+        <div class="alt-card">
+          <div class="alt-icon">💳</div>
+          <h3>Credit Card Presales</h3>
+          <p>Certain credit cards (Amex, Citi, etc.) offer early access presale windows. Having the right card can get you tickets before they sell out in the general sale.</p>
+          <div class="link-area">
+            <a href="#" class="alt-link placeholder">→ Add Link Here</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/nav.js"></script>
+</body>
+</html>
