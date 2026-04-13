@@ -48,7 +48,7 @@
       color: var(--coral);
       text-decoration: line-through;
       text-decoration-thickness: 4px;
-      text-decoration-color: var(--white);
+      text-decoration-color: currentColor;
     }
 
     .tagline {
@@ -70,8 +70,8 @@
     }
 
     .learn-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: var(--surface);
+      border: 1px solid var(--surface-strong);
       border-radius: 4px;
       padding: 1.2rem 1.4rem;
       text-decoration: none;
@@ -107,7 +107,7 @@
 
     .learn-card .card-desc {
       font-size: 0.9rem;
-      color: var(--white);
+      color: var(--fg);
       line-height: 1.4;
     }
 
@@ -129,7 +129,7 @@
       color: var(--light-gray);
       margin-top: 3rem;
       padding-top: 1.5rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: 1px solid var(--surface-strong);
       width: 100%;
       max-width: 600px;
     }
