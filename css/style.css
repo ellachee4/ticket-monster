@@ -34,58 +34,6 @@
   --nav-h: 64px;
 }
 
-[data-theme="light"] {
-  --bg: #f8f6f1;
-  --fg: #111114;
-  --text-80: rgba(17,17,20,0.8);
-  --text-75: rgba(17,17,20,0.75);
-  --text-72: rgba(17,17,20,0.72);
-  --text-70: rgba(17,17,20,0.7);
-  --text-65: rgba(17,17,20,0.65);
-  --text-60: rgba(17,17,20,0.6);
-  --text-55: rgba(17,17,20,0.55);
-  --text-50: rgba(17,17,20,0.5);
-  --text-85: rgba(17,17,20,0.85);
-  --surface: rgba(15,15,15,0.04);
-  --surface-strong: rgba(15,15,15,0.08);
-  --muted: rgba(17,17,20,0.65);
-  --nav-bg: #ffffff;
-  --nav-border: rgba(46,196,182,0.25);
-  --link: #555;
-  --link-hover: #2ec4b6;
-  --toggle-border: rgba(0,0,0,0.12);
-  --toggle-bg: rgba(0,0,0,0.04);
-  --white: #111114;
-  --light-gray: #666;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg: #f8f6f1;
-    --fg: #111114;
-    --text-80: rgba(17,17,20,0.8);
-    --text-75: rgba(17,17,20,0.75);
-    --text-72: rgba(17,17,20,0.72);
-    --text-70: rgba(17,17,20,0.7);
-    --text-65: rgba(17,17,20,0.65);
-    --text-60: rgba(17,17,20,0.6);
-    --text-55: rgba(17,17,20,0.55);
-    --text-50: rgba(17,17,20,0.5);
-    --text-85: rgba(17,17,20,0.85);
-    --surface: rgba(15,15,15,0.04);
-    --surface-strong: rgba(15,15,15,0.08);
-    --muted: rgba(17,17,20,0.65);
-    --nav-bg: #ffffff;
-    --nav-border: rgba(46,196,182,0.2);
-    --link: #555;
-    --link-hover: #2ec4b6;
-    --toggle-border: rgba(0,0,0,0.12);
-    --toggle-bg: rgba(0,0,0,0.04);
-    --white: #111114;
-    --light-gray: #666;
-  }
-}
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }
@@ -97,7 +45,6 @@ body {
   font-size: 16px;
   line-height: 1.6;
   min-height: 100vh;
-  transition: background 0.25s ease, color 0.25s ease;
 }
 
 /* ── NAV ── */
@@ -175,26 +122,6 @@ nav ul li a.active {
   width: 24px; height: 2px;
   background: var(--fg);
   transition: all 0.3s;
-}
-
-.theme-toggle {
-  margin-right: 1rem;
-  width: 36px;
-  height: 36px;
-  border: 1px solid var(--toggle-border);
-  border-radius: 999px;
-  background: var(--toggle-bg);
-  color: var(--fg);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 1rem;
-}
-.theme-toggle:hover {
-  transform: translateY(-1px);
-  background: rgba(46,196,182,0.12);
 }
 
 /* ── PAGE WRAPPER ── */
