@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Metal:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap');
 
 :root {
   --bg: #0a0a0a;
@@ -91,7 +91,7 @@ nav ul {
 }
 
 nav ul li a {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Metal', monospace;
   font-size: 0.72rem;
   color: var(--link);
   text-decoration: none;
@@ -152,7 +152,7 @@ nav ul li a.active {
 }
 
 .page-hero .subtitle {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Metal', monospace;
   font-size: 0.82rem;
   color: var(--light-gray);
   margin-top: 0.8rem;
@@ -170,7 +170,7 @@ nav ul li a.active {
 /* ── BUTTONS ── */
 .btn {
   display: inline-block;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Metal', monospace;
   font-size: 0.78rem;
   padding: 0.55rem 1.2rem;
   border: 2px solid var(--teal);
@@ -204,7 +204,7 @@ nav ul li a.active {
 /* ── TAGS ── */
 .tag {
   display: inline-block;
-  font-family: 'Space Mono', monospace;
+  font-family: 'Metal', monospace;
   font-size: 0.65rem;
   padding: 0.2rem 0.5rem;
   background: rgba(46,196,182,0.15);
