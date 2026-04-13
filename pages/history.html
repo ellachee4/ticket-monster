@@ -8,7 +8,7 @@
   <style>
     .timeline {
       position: relative;
-      padding: 2rem 0 4rem;
+      padding: 2rem 0 1rem;
     }
 
     .timeline::before {
@@ -150,6 +150,19 @@
       margin-bottom: 3rem;
       font-size: 0.95rem;
       color: rgba(245,240,232,0.75);
+    }
+
+    .timeline::after {
+      content: '';
+      position: absolute;
+      left: 115px;
+      bottom: 0.5rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--teal);
+      border: 3px solid var(--black);
+      box-shadow: 0 0 0 2px var(--teal);
     }
 
     @media (max-width: 640px) {
