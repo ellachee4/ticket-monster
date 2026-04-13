@@ -26,11 +26,13 @@
   --cream: #ede8dc;
   --teal: #2ec4b6;
   --coral: #e63946;
+  --blue: #3485ee;
   --yellow: #ffd166;
+  --purple: #b067ff;
   --pink: #ffb3ba;
   --green: #06d6a0;
   --mid-gray: #3a3a3a;
-  --light-gray: #888;
+  --light-gray: #b8b8b8;
   --nav-h: 64px;
 }
 
@@ -42,7 +44,7 @@ body {
   background: var(--bg);
   color: var(--fg);
   font-family: 'DM Sans', sans-serif;
-  font-size: 18px;
+  font-size: 22px;
   line-height: 1.6;
   min-height: 100vh;
 }
@@ -75,8 +77,8 @@ nav {
 
 .nav-logo span.strike {
   color: var(--coral);
+  text-decoration-color: var(--white);
   text-decoration: line-through;
-  text-decoration-color: currentColor;
   text-decoration-thickness: 2px;
 }
 
@@ -92,7 +94,7 @@ nav ul {
 
 nav ul li a {
   font-family: 'Space Mono', monospace;
-  font-size: 0.72rem;
+  font-size: 1.0rem;
   color: var(--link);
   text-decoration: none;
   padding: 0.4rem 0.7rem;
@@ -154,10 +156,52 @@ nav ul li a.active {
 .page-hero .subtitle {
   font-family: 'Space Mono', monospace;
   text-transform: lowercase;
-  font-size: 0.82rem;
+  font-size: 1.0rem;
   color: var(--light-gray);
   margin-top: 0.8rem;
   letter-spacing: 0.08em;
+}
+
+body.history .page-hero h1 em {
+  color: var(--teal);
+}
+body.step-by-step .page-hero h1 em {
+  color: var(--coral);
+}
+body.alternatives .page-hero h1 em {
+  color: var(--yellow);
+}
+body.activism .page-hero h1 em {
+  color: var(--green);
+}
+body.simulator .page-hero h1 em {
+  color: var(--purple);
+}
+
+body.history nav ul li a.active,
+body.history nav ul li a.active:hover {
+  color: var(--teal);
+  border-color: var(--teal);
+}
+body.step-by-step nav ul li a.active,
+body.step-by-step nav ul li a.active:hover {
+  color: var(--coral);
+  border-color: var(--coral);
+}
+body.alternatives nav ul li a.active,
+body.alternatives nav ul li a.active:hover {
+  color: var(--yellow);
+  border-color: var(--yellow);
+}
+body.simulator nav ul li a.active,
+body.simulator nav ul li a.active:hover {
+  color: var(--purple);
+  border-color: var(--purple);
+}
+body.activism nav ul li a.active,
+body.activism nav ul li a.active:hover {
+  color: var(--green);
+  border-color: var(--green);
 }
 
 /* ── SECTION CONTAINER ── */

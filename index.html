@@ -48,7 +48,7 @@
       color: var(--coral);
       text-decoration: line-through;
       text-decoration-thickness: 4px;
-      text-decoration-color: currentColor;
+      text-decoration-color: var(--white);
     }
 
     .tagline {
@@ -98,15 +98,15 @@
 
     .learn-card .card-label {
       font-family: 'Space Mono', monospace;
-      font-size: 0.68rem;
+      font-size: 1.0rem;
       color: var(--teal);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+      text-transform: lowercase;
+      letter-spacing: 0.05em;
       margin-bottom: 0.4rem;
     }
 
     .learn-card .card-desc {
-      font-size: 0.9rem;
+      font-size: 1.0rem;
       color: var(--fg);
       line-height: 1.4;
     }
@@ -122,6 +122,14 @@
     .learn-card.green .card-label { color: var(--green); }
     .learn-card.green:hover { border-color: rgba(6,214,160,0.4); background: rgba(6,214,160,0.05); }
     .learn-card.green::before { background: var(--green); }
+
+    .learn-card.purple .card-label { color: var(--purple); }
+    .learn-card.purple:hover { border-color: rgba(183,118,253,0.4); background: rgba(183,118,253,0.05); }
+    .learn-card.purple::before { background: var(--purple); }
+
+    .learn-card.blue .card-label { color: var(--blue); }
+    .learn-card.blue:hover { border-color: rgba(8,93,203,0.4); background: rgba(8,93,203,0.05); }
+    .learn-card.blue::before { background: var(--blue); }
 
     .author-note {
       font-family: 'Space Mono', monospace;
@@ -167,22 +175,35 @@
 
       <div class="learn-grid">
         <a href="pages/history.html" class="learn-card">
-          <div class="card-label">→ History</div>
+          <div class="card-label">→ history</div>
           <div class="card-desc">Ticketmaster's rise &amp; how it captured the market</div>
         </a>
         <a href="pages/step-by-step.html" class="learn-card coral">
-          <div class="card-label">→ Step-by-Step</div>
+          <div class="card-label">→ step-by-step</div>
           <div class="card-desc">How to actually get tickets</div>
         </a>
+        <a href="pages/simulator.html" class="learn-card purple">
+          <div class="card-label">→ simulator</div>
+          <div class="card-desc">Get some practice in a high-demand sale</div>
+        </a>
         <a href="pages/alternatives.html" class="learn-card yellow">
-          <div class="card-label">→ Alternatives</div>
+          <div class="card-label">→ alternatives</div>
           <div class="card-desc">Other ticket platforms &amp; workarounds</div>
         </a>
         <a href="pages/activism.html" class="learn-card green">
-          <div class="card-label">→ Activism</div>
+          <div class="card-label">→ activism</div>
           <div class="card-desc">Long-term action to break up the monopoly</div>
         </a>
+
+        <a href="ticketmaster_guide.pdf" class="learn-card blue">
+          <div class="card-label">→ brochure</div>
+          <div class="card-desc">View as PDF brochure</div>
+        </a>
       </div>
+
+      
+
+
 
       <div class="author-note">
         by Ella Chee &nbsp;·&nbsp; a guide to navigating high-demand ticket sales
