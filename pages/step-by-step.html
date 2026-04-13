@@ -1,362 +1,274 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Step-by-Step Guide — Ticket Monster</title>
-  <link rel="stylesheet" href="../css/style.css" />
-  <style>
-    .two-col {
-      display: grid;
-      grid-template-columns: 340px 1fr;
-      gap: 3rem;
-      align-items: start;
-    }
-
-    /* ── LEFT: CHECKLIST ── */
-    .checklist-panel {
-      position: sticky;
-      top: calc(var(--nav-h) + 1.5rem);
-      background: rgba(46,196,182,0.05);
-      border: 1px solid rgba(46,196,182,0.25);
-      border-radius: 8px;
-      padding: 1.8rem;
-    }
-
-    .checklist-panel h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.3rem;
-      color: var(--teal);
-      letter-spacing: 0.05em;
-      margin-bottom: 0.4rem;
-    }
-
-    .checklist-panel .cl-subtitle {
-      font-family: 'metal', monospace; font-style: italic;
-      font-size: 0.65rem;
-      color: var(--light-gray);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 1.2rem;
-    }
-
-    .checklist {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .checklist li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.7rem;
-      cursor: pointer;
-      padding: 0.5rem 0.6rem;
-      border-radius: 4px;
-      transition: background 0.2s;
-      font-size: 0.88rem;
-      line-height: 1.4;
-      color: var(--text-85);
-      border: 1px solid transparent;
-    }
-
-    .checklist li:hover {
-      background: rgba(46,196,182,0.08);
-      border-color: rgba(46,196,182,0.2);
-    }
-
-    .checklist li.checked {
-      color: var(--light-gray);
-      text-decoration: line-through;
-    }
-
-    .cl-box {
-      flex-shrink: 0;
-      width: 18px; height: 18px;
-      border: 2px solid var(--teal);
-      border-radius: 3px;
-      display: flex; align-items: center; justify-content: center;
-      margin-top: 1px;
-      transition: all 0.2s;
-      font-size: 0.7rem;
-      color: var(--black);
-    }
-
-    .checklist li.checked .cl-box {
-      background: var(--teal);
-    }
-
-    .cl-box::after {
-      content: '✓';
-      display: none;
-      font-weight: 700;
-    }
-
-    .checklist li.checked .cl-box::after { display: block; }
-
-    .progress-bar {
-      margin-top: 1.2rem;
-      height: 4px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 2px;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: var(--teal);
-      border-radius: 2px;
-      transition: width 0.4s ease;
-      width: 0%;
-    }
-
-    .progress-label {
-      font-family: 'metal', monospace; font-style: italic;
-      font-size: 0.65rem;
-      color: var(--light-gray);
-      margin-top: 0.4rem;
-      letter-spacing: 0.05em;
-    }
-
-    /* ── RIGHT: STEPS ── */
-    .steps-panel h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      color: var(--white);
-      letter-spacing: 0.05em;
-      margin-bottom: 1.5rem;
-    }
-
-    .step-card {
-      display: flex;
-      gap: 1.5rem;
-      margin-bottom: 1.4rem;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 6px;
-      padding: 1.3rem 1.5rem;
-      transition: border-color 0.25s;
-    }
-
-    .step-card:hover {
-      border-color: rgba(230,57,70,0.35);
-    }
-
-    .step-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 3rem;
-      color: var(--coral);
-      line-height: 1;
-      flex-shrink: 0;
-      width: 48px;
-      text-align: center;
-      opacity: 0.85;
-    }
-
-    .step-body h3 {
-      font-family: 'metal', monospace; font-style: italic;
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 0.35rem;
-      letter-spacing: 0.03em;
-    }
-
-    .step-body p {
-      font-size: 0.93rem;
-      color: var(--text-75);
-      line-height: 1.55;
-    }
-
-    .step-card.final {
-      border-color: rgba(6,214,160,0.3);
-      background: rgba(6,214,160,0.05);
-    }
-
-    .step-card.final .step-num { color: var(--green); }
-
-    .steps-section-label {
-      font-family: 'metal', monospace; font-style: italic;
-      font-size: 0.68rem;
-      color: var(--light-gray);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin: 2rem 0 1rem;
-      padding-bottom: 0.4rem;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-
-    @media (max-width: 900px) {
-      .two-col { grid-template-columns: 1fr; }
-      .checklist-panel { position: static; }
-    }
-  </style>
-</head>
-<body>
-  <nav>
-    <a href="../index.html" class="nav-logo">ticket <span class="alt">monster</span> <span class="strike">master</span></a>
-    <div class="hamburger"><span></span><span></span><span></span></div>
-    <ul>
-      <li><a href="history.html">History</a></li>
-      <li><a href="step-by-step.html">Step-by-Step</a></li>
-      <li><a href="simulator.html">Simulator</a></li>
-      <li><a href="alternatives.html">Alternatives</a></li>
-      <li><a href="activism.html">Activism</a></li>
-      <li><a href="citations.html">Citations</a></li>
-    </ul>
-  </nav>
-
-  <div class="page-wrapper">
-    <div class="page-hero">
-      <div class="subtitle">How-to</div>
-      <h1>Step-by-Step<br><em>Guide</em></h1>
-    </div>
-
-    <div class="container">
-      <div class="two-col">
-
-        <!-- LEFT: CHECKLIST -->
-        <div class="checklist-panel">
-          <h2>Pre-Sale Checklist</h2>
-          <div class="cl-subtitle">Complete before the sale opens</div>
-
-          <ul class="checklist" id="checklist">
-            <li onclick="toggle(this)">
-              <div class="cl-box"></div>
-              Join artist mailing list/social media to find tour dates
-            </li>
-            <li onclick="toggle(this)">
-              <div class="cl-box"></div>
-              When tour announced, set reminder on event page, allow text reminders
-            </li>
-            <li onclick="toggle(this)">
-              <div class="cl-box"></div>
-              Sign up for presale events (venue, artist, credit card), save presale codes
-            </li>
-            <li onclick="toggle(this)">
-              <div class="cl-box"></div>
-              Have credit card &amp; address saved to Ticketmaster
-            </li>
-            <li onclick="toggle(this)">
-              <div class="cl-box"></div>
-              Know exact number of tickets &amp; max price you're willing to pay
-            </li>
-            <li onclick="toggle(this)">
-              <div class="cl-box"></div>
-              Check ticket limits beforehand
-            </li>
-            <li onclick="toggle(this)">
-              <div class="cl-box"></div>
-              Have as many people in your group join the sale simultaneously
-            </li>
-            <li onclick="toggle(this)">
-              <div class="cl-box"></div>
-              Keep phone close, use (charged) laptop
-            </li>
-            <li onclick="toggle(this)">
-              <div class="cl-box"></div>
-              Ensure secure internet connection (turn off VPN, avoid public WiFi)
-            </li>
-            <li onclick="toggle(this)">
-              <div class="cl-box"></div>
-              Have presale code ready
-            </li>
-          </ul>
-
-          <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-          </div>
-          <div class="progress-label" id="progressLabel">0 / 10 complete</div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Step-by-Step Guide — Ticket Monster
+    </title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+      .two-col { display: grid; grid-template-columns: 340px 1fr; gap: 3rem; align-items: start; } /* ── LEFT: CHECKLIST ── */ .checklist-panel { position: sticky; top: calc(var(--nav-h) + 1.5rem); background: rgba(46,196,182,0.05); border: 1px solid rgba(46,196,182,0.25); border-radius: 8px; padding: 1.8rem; } .checklist-panel h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--teal); letter-spacing: 0.05em; margin-bottom: 0.4rem; } .checklist-panel .cl-subtitle { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--light-gray); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.2rem; } .checklist { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; } .checklist li { display: flex; align-items: flex-start; gap: 0.7rem; cursor: pointer; padding: 0.5rem 0.6rem; border-radius: 4px; transition: background 0.2s; font-size: 0.88rem; line-height: 1.4; color: var(--text-85); border: 1px solid transparent; } .checklist li:hover { background: rgba(46,196,182,0.08); border-color: rgba(46,196,182,0.2); } .checklist li.checked { color: var(--light-gray); text-decoration: line-through; } .cl-box { flex-shrink: 0; width: 18px; height: 18px; border: 2px solid var(--teal); border-radius: 3px; display: flex; align-items: center; justify-content: center; margin-top: 1px; transition: all 0.2s; font-size: 0.7rem; color: var(--black); } .checklist li.checked .cl-box { background: var(--teal); } .cl-box::after { content: '✓'; display: none; font-weight: 700; } .checklist li.checked .cl-box::after { display: block; } .progress-bar { margin-top: 1.2rem; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; } .progress-fill { height: 100%; background: var(--teal); border-radius: 2px; transition: width 0.4s ease; width: 0%; } .progress-label { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--light-gray); margin-top: 0.4rem; letter-spacing: 0.05em; } /* ── RIGHT: STEPS ── */ .steps-panel h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--white); letter-spacing: 0.05em; margin-bottom: 1.5rem; } .step-card { display: flex; gap: 1.5rem; margin-bottom: 1.4rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 6px; padding: 1.3rem 1.5rem; transition: border-color 0.25s; } .step-card:hover { border-color: rgba(230,57,70,0.35); } .step-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--coral); line-height: 1; flex-shrink: 0; width: 48px; text-align: center; opacity: 0.85; } .step-body h3 { font-family: 'Space Mono', monospace; font-size: 0.82rem; font-weight: 700; color: var(--white); margin-bottom: 0.35rem; letter-spacing: 0.03em; } .step-body p { font-size: 0.93rem; color: var(--text-75); line-height: 1.55; } .step-card.final { border-color: rgba(6,214,160,0.3); background: rgba(6,214,160,0.05); } .step-card.final .step-num { color: var(--green); } .steps-section-label { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: var(--light-gray); text-transform: uppercase; letter-spacing: 0.12em; margin: 2rem 0 1rem; padding-bottom: 0.4rem; border-bottom: 1px solid rgba(255,255,255,0.08); } @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } .checklist-panel { position: static; } }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="../index.html" class="nav-logo">
+        ticket
+        <span class="alt">
+          monster
+        </span>
+        <span class="strike">
+          master
+        </span>
+      </a>
+      <div class="hamburger">
+        <span>
+        </span>
+        <span>
+        </span>
+        <span>
+        </span>
+      </div>
+      <ul>
+        <li>
+          <a href="history.html">
+            History
+          </a>
+        </li>
+        <li>
+          <a href="step-by-step.html">
+            Step-by-Step
+          </a>
+        </li>
+        <li>
+          <a href="simulator.html">
+            Simulator
+          </a>
+        </li>
+        <li>
+          <a href="alternatives.html">
+            Alternatives
+          </a>
+        </li>
+        <li>
+          <a href="activism.html">
+            Activism
+          </a>
+        </li>
+        <li>
+          <a href="citations.html">
+            Citations
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="page-wrapper">
+      <div class="page-hero">
+        <div class="subtitle">
+          How-to
         </div>
-
-        <!-- RIGHT: NUMBERED STEPS -->
-        <div class="steps-panel">
-          <div class="steps-section-label">During the Sale</div>
-
-          <div class="step-card">
-            <div class="step-num">1</div>
-            <div class="step-body">
-              <h3>Get Tech Ready</h3>
-              <p>Keep your phone close and use a charged laptop. Usually easier to pick tickets on laptop. </p>
+        <h1>
+          Step-by-Step
+          <br />
+          <em>
+            Guide
+          </em>
+        </h1>
+      </div>
+      <div class="container">
+        <div class="two-col">
+          <!-- LEFT: CHECKLIST -->
+          <div class="checklist-panel">
+            <h2>
+              Pre-Sale Checklist
+            </h2>
+            <div class="cl-subtitle">
+              Complete before the sale opens
+            </div>
+            <ul class="checklist" id="checklist">
+              <li onclick="toggle(this)">
+                <div class="cl-box">
+                </div>
+                Join artist mailing list/social media to find tour dates
+              </li>
+              <li onclick="toggle(this)">
+                <div class="cl-box">
+                </div>
+                When tour announced, set reminder on event page, allow text reminders
+              </li>
+              <li onclick="toggle(this)">
+                <div class="cl-box">
+                </div>
+                Sign up for presale events (venue, artist, credit card), save presale codes
+              </li>
+              <li onclick="toggle(this)">
+                <div class="cl-box">
+                </div>
+                Have credit card & address saved to Ticketmaster
+              </li>
+              <li onclick="toggle(this)">
+                <div class="cl-box">
+                </div>
+                Know exact number of tickets & max price you're willing to pay
+              </li>
+              <li onclick="toggle(this)">
+                <div class="cl-box">
+                </div>
+                Check ticket limits beforehand
+              </li>
+              <li onclick="toggle(this)">
+                <div class="cl-box">
+                </div>
+                Have as many people in your group join the sale simultaneously
+              </li>
+              <li onclick="toggle(this)">
+                <div class="cl-box">
+                </div>
+                Keep phone close, use (charged) laptop
+              </li>
+              <li onclick="toggle(this)">
+                <div class="cl-box">
+                </div>
+                Ensure secure internet connection (turn off VPN, avoid public WiFi)
+              </li>
+              <li onclick="toggle(this)">
+                <div class="cl-box">
+                </div>
+                Have presale code ready
+              </li>
+            </ul>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill">
+              </div>
+            </div>
+            <div class="progress-label" id="progressLabel">
+              0 / 10 complete
             </div>
           </div>
-
-          <div class="step-card">
-            <div class="step-num">2</div>
-            <div class="step-body">
-              <h3>Secure Your Connection</h3>
-              <p>Ensure a secure internet connection. Turn off any VPN and avoid public WiFi, unstable connections can knock you out of queue.</p>
+          <!-- RIGHT: NUMBERED STEPS -->
+          <div class="steps-panel">
+            <div class="steps-section-label">
+              During the Sale
+            </div>
+            <div class="step-card">
+              <div class="step-num">
+                1
+              </div>
+              <div class="step-body">
+                <h3>
+                  Get Tech Ready
+                </h3>
+                <p>
+                  Keep your phone close and use a charged laptop. Usually easier to pick tickets on laptop.
+                </p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-num">
+                2
+              </div>
+              <div class="step-body">
+                <h3>
+                  Secure Your Connection
+                </h3>
+                <p>
+                  Ensure a secure internet connection. Turn off any VPN and avoid public WiFi, unstable connections can knock you out of queue.
+                </p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-num">
+                3
+              </div>
+              <div class="step-body">
+                <h3>
+                  Prepare Your Presale Code
+                </h3>
+                <p>
+                  Have your presale code copied and ready to paste. Don't scramble to find it when the sale opens. Example:
+                  <code style="background:rgba(255,255,255,0.1);padding:2px 6px;border-radius:3px;font-family: 'Space Mono', monospace; font-size:0.8rem;">
+                    THE123CODE567
+                  </code>
+                </p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-num">
+                4
+              </div>
+              <div class="step-body">
+                <h3>
+                  Enter the Waiting Room ASAP
+                </h3>
+                <p>
+                  Join the waiting room 15-30 minutes before the sale opens. The earlier you enter, the better your queue position.
+                </p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-num">
+                5
+              </div>
+              <div class="step-body">
+                <h3>
+                  One Browser, One Tab
+                </h3>
+                <p>
+                  Use only one browser tab per concert date. Opening multiple tabs can reset your position or get you flagged. Coordinate with friends to each cover different dates.
+                </p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-num">
+                6
+              </div>
+              <div class="step-body">
+                <h3>
+                  Stay Alert & Don't Refresh
+                </h3>
+                <p>
+                  Once in the queue, do
+                  <strong>
+                    not
+                  </strong>
+                  refresh the page. Stay alert for your turn. Refreshing resets your queue position.
+                </p>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-num">
+                7
+              </div>
+              <div class="step-body">
+                <h3>
+                  Select Tickets & Confirm
+                </h3>
+                <p>
+                  Choose your number of tickets, pick your seats quickly, and confirm payment. You have a time limit, don't deliberate too long or tickets will be released back.
+                </p>
+              </div>
+            </div>
+            <div class="step-card final">
+              <div class="step-num">
+                8
+              </div>
+              <div class="step-body">
+                <h3>
+                  You Did It!
+                </h3>
+                <p>
+                  Congratulations! You survived the Ticketmaster wars. Check your email for confirmation and note the delivery method for your tickets.
+                </p>
+              </div>
             </div>
           </div>
-
-          <div class="step-card">
-            <div class="step-num">3</div>
-            <div class="step-body">
-              <h3>Prepare Your Presale Code</h3>
-              <p>Have your presale code copied and ready to paste. Don't scramble to find it when the sale opens. Example: <code style="background:rgba(255,255,255,0.1);padding:2px 6px;border-radius:3px;font-family: 'metal', monospace; font-style: italic;font-size:0.8rem;">THE123CODE567</code></p>
-            </div>
-          </div>
-
-          <div class="step-card">
-            <div class="step-num">4</div>
-            <div class="step-body">
-              <h3>Enter the Waiting Room ASAP</h3>
-              <p>Join the waiting room 15-30 minutes before the sale opens. The earlier you enter, the better your queue position.</p>
-            </div>
-          </div>
-
-          <div class="step-card">
-            <div class="step-num">5</div>
-            <div class="step-body">
-              <h3>One Browser, One Tab</h3>
-              <p>Use only one browser tab per concert date. Opening multiple tabs can reset your position or get you flagged. Coordinate with friends to each cover different dates.</p>
-            </div>
-          </div>
-
-          <div class="step-card">
-            <div class="step-num">6</div>
-            <div class="step-body">
-              <h3>Stay Alert &amp; Don't Refresh</h3>
-              <p>Once in the queue, do <strong>not</strong> refresh the page. Stay alert for your turn. Refreshing resets your queue position.</p>
-            </div>
-          </div>
-
-          <div class="step-card">
-            <div class="step-num">7</div>
-            <div class="step-body">
-              <h3>Select Tickets &amp; Confirm</h3>
-              <p>Choose your number of tickets, pick your seats quickly, and confirm payment. You have a time limit, don't deliberate too long or tickets will be released back.</p>
-            </div>
-          </div>
-
-          <div class="step-card final">
-            <div class="step-num">8</div>
-            <div class="step-body">
-              <h3>You Did It! </h3>
-              <p>Congratulations! You survived the Ticketmaster wars. Check your email for confirmation and note the delivery method for your tickets.</p>
-            </div>
-          </div>
-
         </div>
       </div>
     </div>
-  </div>
-
-  <script src="../js/nav.js"></script>
-  <script>
-    function toggle(el) {
-      el.classList.toggle('checked');
-      updateProgress();
-    }
-
-    function updateProgress() {
-      const items = document.querySelectorAll('#checklist li');
-      const checked = document.querySelectorAll('#checklist li.checked').length;
-      const pct = (checked / items.length) * 100;
-      document.getElementById('progressFill').style.width = pct + '%';
-      document.getElementById('progressLabel').textContent = `${checked} / ${items.length} complete`;
-    }
-  </script>
-</body>
+    <script src="../js/nav.js">
+    </script>
+    <script>
+      function toggle(el) { el.classList.toggle('checked'); updateProgress(); } function updateProgress() { const items = document.querySelectorAll('#checklist li'); const checked = document.querySelectorAll('#checklist li.checked').length; const pct = (checked / items.length) * 100; document.getElementById('progressFill').style.width = pct + '%'; document.getElementById('progressLabel').textContent = `${checked} / ${items.length} complete`; }
+    </script>
+  </body>
 </html>

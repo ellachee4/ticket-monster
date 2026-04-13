@@ -1,167 +1,180 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Citations — Ticket Monster</title>
-  <link rel="stylesheet" href="../css/style.css" />
-  <style>
-    .citations-shell {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 8px;
-      padding: 2.5rem;
-      min-height: 500px;
-    }
-
-    .citations-shell h2 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      color: var(--light-gray);
-      letter-spacing: 0.05em;
-      margin-bottom: 0.5rem;
-    }
-
-    .placeholder-note {
-      font-family: 'metal', monospace; font-style: italic;
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.25);
-      letter-spacing: 0.06em;
-      margin-bottom: 2.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px dashed rgba(255,255,255,0.1);
-    }
-
-    .cite-item {
-      display: grid;
-      grid-template-columns: 32px 1fr;
-      gap: 0.5rem 1rem;
-      margin-bottom: 1.8rem;
-      padding-bottom: 1.8rem;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .cite-item:last-child { border-bottom: none; }
-
-    .cite-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      color: var(--teal);
-      line-height: 1.2;
-    }
-
-    .cite-body {
-      color: var(--text-60);
-      font-size: 0.9rem;
-      line-height: 1.6;
-    }
-
-    .cite-body a {
-      color: var(--teal);
-      text-decoration: none;
-    }
-
-    .cite-body a:hover { text-decoration: underline; }
-
-    .empty-slot {
-      height: 28px;
-      background: rgba(255,255,255,0.04);
-      border-radius: 3px;
-      border: 1px dashed rgba(255,255,255,0.1);
-      display: flex; align-items: center; padding: 0 0.8rem;
-    }
-
-    .empty-slot span {
-      font-family: 'metal', monospace; font-style: italic;
-      font-size: 0.65rem;
-      color: rgba(255,255,255,0.2);
-      letter-spacing: 0.06em;
-    }
-
-    .add-hint {
-      margin-top: 2rem;
-      padding: 1.2rem 1.5rem;
-      background: rgba(46,196,182,0.05);
-      border: 1px dashed rgba(46,196,182,0.2);
-      border-radius: 6px;
-      font-family: 'metal', monospace; font-style: italic;
-      font-size: 0.72rem;
-      color: rgba(46,196,182,0.5);
-      letter-spacing: 0.05em;
-      line-height: 1.8;
-    }
-  </style>
-</head>
-<body>
-  <nav>
-    <a href="../index.html" class="nav-logo">ticket <span class="alt">monster</span> <span class="strike">master</span></a>
-    <div class="hamburger"><span></span><span></span><span></span></div>
-    <ul>
-      <li><a href="history.html">History</a></li>
-      <li><a href="step-by-step.html">Step-by-Step</a></li>
-      <li><a href="simulator.html">Simulator</a></li>
-      <li><a href="alternatives.html">Alternatives</a></li>
-      <li><a href="activism.html">Activism</a></li>
-      <li><a href="citations.html">Citations</a></li>
-    </ul>
-  </nav>
-
-  <div class="page-wrapper">
-    <div class="page-hero">
-      <div class="subtitle">Sources</div>
-      <h1>Citations &<br><em>References</em></h1>
-    </div>
-
-    <div class="container">
-      <div class="citations-shell">
-        <h2>Works Cited</h2>
-
-        <!-- Slots for citations — add as many as needed -->
-        <div class="cite-item">
-          <div class="cite-num">1</div>
-          <div class="cite-body">
-            That's the Ticket: Promoting Competition and Protecting Consumers in Live Entertainment, <em>United States Senate Committee on the Judiciary</em>, 2023. Available: <a href="https://www.judiciary.senate.gov/committee-activity/hearings/thats-the-ticket-promoting-competition-and-protecting-consumers-in-live-entertainment">https://www.judiciary.senate.gov/committee-activity/hearings/thats-the-ticket-promoting-competition-and-protecting-consumers-in-live-entertainment</a>
-          </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Citations — Ticket Monster
+    </title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+      .citations-shell { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 2.5rem; min-height: 500px; } .citations-shell h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--light-gray); letter-spacing: 0.05em; margin-bottom: 0.5rem; } .placeholder-note { font-family: 'Space Mono', monospace; font-size: 0.72rem; color: rgba(255,255,255,0.25); letter-spacing: 0.06em; margin-bottom: 2.5rem; padding-bottom: 1rem; border-bottom: 1px dashed rgba(255,255,255,0.1); } .cite-item { display: grid; grid-template-columns: 32px 1fr; gap: 0.5rem 1rem; margin-bottom: 1.8rem; padding-bottom: 1.8rem; border-bottom: 1px solid rgba(255,255,255,0.05); } .cite-item:last-child { border-bottom: none; } .cite-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--teal); line-height: 1.2; } .cite-body { color: var(--text-60); font-size: 0.9rem; line-height: 1.6; } .cite-body a { color: var(--teal); text-decoration: none; } .cite-body a:hover { text-decoration: underline; } .empty-slot { height: 28px; background: rgba(255,255,255,0.04); border-radius: 3px; border: 1px dashed rgba(255,255,255,0.1); display: flex; align-items: center; padding: 0 0.8rem; } .empty-slot span { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: rgba(255,255,255,0.2); letter-spacing: 0.06em; } .add-hint { margin-top: 2rem; padding: 1.2rem 1.5rem; background: rgba(46,196,182,0.05); border: 1px dashed rgba(46,196,182,0.2); border-radius: 6px; font-family: 'Space Mono', monospace; font-size: 0.72rem; color: rgba(46,196,182,0.5); letter-spacing: 0.05em; line-height: 1.8; }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="../index.html" class="nav-logo">
+        ticket
+        <span class="alt">
+          monster
+        </span>
+        <span class="strike">
+          master
+        </span>
+      </a>
+      <div class="hamburger">
+        <span>
+        </span>
+        <span>
+        </span>
+        <span>
+        </span>
+      </div>
+      <ul>
+        <li>
+          <a href="history.html">
+            History
+          </a>
+        </li>
+        <li>
+          <a href="step-by-step.html">
+            Step-by-Step
+          </a>
+        </li>
+        <li>
+          <a href="simulator.html">
+            Simulator
+          </a>
+        </li>
+        <li>
+          <a href="alternatives.html">
+            Alternatives
+          </a>
+        </li>
+        <li>
+          <a href="activism.html">
+            Activism
+          </a>
+        </li>
+        <li>
+          <a href="citations.html">
+            Citations
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="page-wrapper">
+      <div class="page-hero">
+        <div class="subtitle">
+          Sources
         </div>
-
-        <div class="cite-item">
-          <div class="cite-num">2</div>
-          <div class="cite-body">
-            "Ticketmaster (Ticketing Company)," <em>Rolling Stone</em>, 2022. Available: <a href="https://www.rollingstone.com/t/ticketmaster/">https://www.rollingstone.com/t/ticketmaster/</a>
+        <h1>
+          Citations &
+          <br />
+          <em>
+            References
+          </em>
+        </h1>
+      </div>
+      <div class="container">
+        <div class="citations-shell">
+          <h2>
+            Works Cited
+          </h2>
+          <!-- Slots for citations — add as many as needed -->
+          <div class="cite-item">
+            <div class="cite-num">
+              1
+            </div>
+            <div class="cite-body">
+              That's the Ticket: Promoting Competition and Protecting Consumers in Live Entertainment,
+              <em>
+                United States Senate Committee on the Judiciary
+              </em>
+              , 2023. Available:
+              <a href="https://www.judiciary.senate.gov/committee-activity/hearings/thats-the-ticket-promoting-competition-and-protecting-consumers-in-live-entertainment">
+                https://www.judiciary.senate.gov/committee-activity/hearings/thats-the-ticket-promoting-competition-and-protecting-consumers-in-live-entertainment
+              </a>
+            </div>
           </div>
-        </div>
-
-        <div class="cite-item">
-          <div class="cite-num">3</div>
-          <div class="cite-body">
-            M. Savage, "Ticketing giant Live Nation reaches settlement in anti-trust case," <em>BBC</em>, Mar. 09, 2026. Available: <a href="https://www.bbc.com/news/articles/clygrnv2rdpo">https://www.bbc.com/news/articles/clygrnv2rdpo</a>
+          <div class="cite-item">
+            <div class="cite-num">
+              2
+            </div>
+            <div class="cite-body">
+              "Ticketmaster (Ticketing Company),"
+              <em>
+                Rolling Stone
+              </em>
+              , 2022. Available:
+              <a href="https://www.rollingstone.com/t/ticketmaster/">
+                https://www.rollingstone.com/t/ticketmaster/
+              </a>
+            </div>
           </div>
-        </div>
-
-        <div class="cite-item">
-          <div class="cite-num">4</div>
-          <div class="cite-body">
-            "BreakUpTicketmaster," <em>BreakUpTicketmaster</em>. Available: <a href="https://www.breakupticketmaster.com/">https://www.breakupticketmaster.com/</a>
+          <div class="cite-item">
+            <div class="cite-num">
+              3
+            </div>
+            <div class="cite-body">
+              M. Savage, "Ticketing giant Live Nation reaches settlement in anti-trust case,"
+              <em>
+                BBC
+              </em>
+              , Mar. 09, 2026. Available:
+              <a href="https://www.bbc.com/news/articles/clygrnv2rdpo">
+                https://www.bbc.com/news/articles/clygrnv2rdpo
+              </a>
+            </div>
           </div>
-        </div>
-
-        <div class="cite-item">
-          <div class="cite-num">5</div>
-          <div class="cite-body">
-            C. Lawrence, "Opinion | Taylor Swift's Live Nation Debacle Is Just the Beginning," <em>The New York Times</em>, Dec. 10, 2022. Available: <a href="https://www.nytimes.com/2022/12/10/opinion/taylor-swift-live-nation-clyde-lawrence.html">https://www.nytimes.com/2022/12/10/opinion/taylor-swift-live-nation-clyde-lawrence.html</a>
+          <div class="cite-item">
+            <div class="cite-num">
+              4
+            </div>
+            <div class="cite-body">
+              "BreakUpTicketmaster,"
+              <em>
+                BreakUpTicketmaster
+              </em>
+              . Available:
+              <a href="https://www.breakupticketmaster.com/">
+                https://www.breakupticketmaster.com/
+              </a>
+            </div>
           </div>
-        </div>
-
-        <div class="cite-item">
-          <div class="cite-num">6</div>
-          <div class="cite-body">
-            Waiss Aramesh, "Maggie Rogers Shares 'Don't Forget Me Tour, Part II' Ticket Details," <em>Rolling Stone</em>, Apr. 11, 2024. Available: <a href="https://www.rollingstone.com/music/music-news/maggie-rogers-2024-arena-tour-in-person-ticketing-1235002892/">https://www.rollingstone.com/music/music-news/maggie-rogers-2024-arena-tour-in-person-ticketing-1235002892/</a>
+          <div class="cite-item">
+            <div class="cite-num">
+              5
+            </div>
+            <div class="cite-body">
+              C. Lawrence, "Opinion | Taylor Swift's Live Nation Debacle Is Just the Beginning,"
+              <em>
+                The New York Times
+              </em>
+              , Dec. 10, 2022. Available:
+              <a href="https://www.nytimes.com/2022/12/10/opinion/taylor-swift-live-nation-clyde-lawrence.html">
+                https://www.nytimes.com/2022/12/10/opinion/taylor-swift-live-nation-clyde-lawrence.html
+              </a>
+            </div>
+          </div>
+          <div class="cite-item">
+            <div class="cite-num">
+              6
+            </div>
+            <div class="cite-body">
+              Waiss Aramesh, "Maggie Rogers Shares 'Don't Forget Me Tour, Part II' Ticket Details,"
+              <em>
+                Rolling Stone
+              </em>
+              , Apr. 11, 2024. Available:
+              <a href="https://www.rollingstone.com/music/music-news/maggie-rogers-2024-arena-tour-in-person-ticketing-1235002892/">
+                https://www.rollingstone.com/music/music-news/maggie-rogers-2024-arena-tour-in-person-ticketing-1235002892/
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <script src="../js/nav.js"></script>
-</body>
+    <script src="../js/nav.js">
+    </script>
+  </body>
 </html>

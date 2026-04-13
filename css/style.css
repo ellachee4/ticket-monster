@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=metal:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono&display=swap&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap');
 
 :root {
   --bg: #0a0a0a;
@@ -91,8 +91,8 @@ nav ul {
 }
 
 nav ul li a {
-  font-family: 'metal', monospace; font-style: italic;
-  font-size: 22px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
   color: var(--link);
   text-decoration: none;
   padding: 0.4rem 0.7rem;
@@ -152,10 +152,9 @@ nav ul li a.active {
 }
 
 .page-hero .subtitle {
-  font-family: 'metal', monospace; font-style: italic;
-  font-style: italic;
+  font-family: 'Space Mono', monospace;
   text-transform: lowercase;
-  font-size: 22px;
+  font-size: 0.82rem;
   color: var(--light-gray);
   margin-top: 0.8rem;
   letter-spacing: 0.08em;
@@ -171,8 +170,8 @@ nav ul li a.active {
 /* ── BUTTONS ── */
 .btn {
   display: inline-block;
-  font-family: 'metal', monospace; font-style: italic;
-  font-size: 22px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
   padding: 0.55rem 1.2rem;
   border: 2px solid var(--teal);
   color: var(--teal);
@@ -180,7 +179,6 @@ nav ul li a.active {
   cursor: pointer;
   text-decoration: none;
   text-transform: lowercase;
-  font-style: italic;
   letter-spacing: 0.06em;
   transition: all 0.2s;
   border-radius: 2px;
@@ -206,8 +204,8 @@ nav ul li a.active {
 /* ── TAGS ── */
 .tag {
   display: inline-block;
-  font-family: 'metal', monospace; font-style: italic;
-  font-size: 22px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
   padding: 0.2rem 0.5rem;
   background: rgba(46,196,182,0.15);
   border: 1px solid var(--teal);
