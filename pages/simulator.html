@@ -17,7 +17,7 @@
       border-radius: 6px;
       padding: 1.2rem 1.5rem;
       font-size: 0.92rem;
-      color: rgba(245,240,232,0.8);
+      color: var(--text-80);
       margin-bottom: 2.5rem;
     }
 
@@ -263,7 +263,7 @@
       display: flex; justify-content: space-between;
       font-size: 0.9rem;
       padding: 0.35rem 0;
-      color: rgba(245,240,232,0.8);
+      color: var(--text-80);
       border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
@@ -403,7 +403,7 @@
           <div class="phase active" id="phase0">
             <div class="phase-title">The Void Tour</div>
             <div class="phase-sub">High-demand presale · Opens in your waiting room</div>
-            <p style="color:rgba(245,240,232,0.65);font-size:0.92rem;margin-bottom:1.8rem;max-width:380px;">
+            <p style="color:var(--text-65);font-size:0.92rem;margin-bottom:1.8rem;max-width:380px;">
               You're about to experience a real Ticketmaster high-demand presale. The clock starts now. Are you ready?
             </p>
             <button class="btn btn-fill" onclick="startSim()">Enter Waiting Room</button>
@@ -420,7 +420,7 @@
               </svg>
               <div class="countdown-num" id="countdownNum">30</div>
             </div>
-            <p style="color:rgba(245,240,232,0.55);font-size:0.85rem;">Do not close this tab. Do not refresh.</p>
+            <p style="color:var(--text-55);font-size:0.85rem;">Do not close this tab. Do not refresh.</p>
           </div>
 
           <!-- PHASE 2: Queue -->
@@ -438,7 +438,7 @@
                 <div class="queue-fill" id="queueFill"></div>
               </div>
             </div>
-            <p style="color:rgba(245,240,232,0.5);font-size:0.8rem;font-family:'Space Mono',monospace;">Stay on this page · Do not refresh</p>
+            <p style="color:var(--text-50);font-size:0.8rem;font-family:'Space Mono',monospace;">Stay on this page · Do not refresh</p>
           </div>
 
           <!-- PHASE 3: Ticket Count -->
@@ -450,7 +450,7 @@
               <div class="qty-display" id="qtyDisplay">2</div>
               <button class="qty-btn" onclick="changeQty(1)">+</button>
             </div>
-            <p style="color:rgba(245,240,232,0.6);font-size:0.88rem;margin-bottom:1.5rem;">
+            <p style="color:var(--text-60);font-size:0.88rem;margin-bottom:1.5rem;">
               Tip: have everyone in your group buying simultaneously for separate dates
             </p>
             <button class="btn btn-fill" onclick="goPhase(4)">Select Seats →</button>
@@ -488,7 +488,7 @@
             <div class="phase-title" style="color:var(--green);">You Got Tickets!</div>
             <div class="phase-sub">Order confirmed · Check your email</div>
             <div class="confetti-row" id="confettiRow"></div>
-            <p style="color:rgba(245,240,232,0.65);font-size:0.9rem;margin:1rem 0 1.8rem;max-width:360px;">
+            <p style="color:var(--text-65);font-size:0.9rem;margin:1rem 0 1.8rem;max-width:360px;">
               You survived the Ticketmaster queue. Now you know exactly what to do when the real sale hits.
             </p>
             <button class="btn" onclick="resetSim()">Try Again</button>
